@@ -4,15 +4,15 @@
     <div class="row">
         <div class="col-md-6">
             @if ($product->photos->count())
-                <img src="{{asset('storage/'.$product->photos->first()->image)}}" alt="{{$product->name}}" class="img-fluid mb-4">
+                <img src="{{asset('storage/'.$product->thumb)}}" alt="{{$product->name}}" class="img-fluid mb-4 thumb">
                 @if ($product->photos->count()>1)
-                <div class="row">
-                    @foreach ($product->photos as $photo)
-                        <div class="col-4">
-                            <img src="{{asset('storage/'.$photo->image)}}" alt="{{$product->name}}" class="img-fluid">
-                        </div>
-                    @endforeach
-                </div>                    
+                    <div class="row">
+                        @foreach ($product->photos as $photo)
+                            <div class="col-4">
+                                <img src="{{asset('storage/'.$photo->image)}}" alt="{{$product->name}}" class="img-fluid img-small">
+                            </div>
+                        @endforeach
+                    </div>                    
                 @endif
             @else
                 <img src="{{asset('assets/img/no-photo.jpg')}}" alt="{{$product->name}}" class="img-fluid">
@@ -37,4 +37,19 @@
     </div>
     <hr>
     <div>{{$product->body}}</h1>
+@endsection
+
+@section('scripts')
+
+    <script>
+        let thumb = document.querySelector('img.thumb');
+        let imgSmall = document.querySelectorAll('img.img-small');
+
+        imgSmall.forEach(function(el){
+            el.addEventListener('click', function(){
+                thumb.src = el.src;
+            });
+        });
+    </script>
+
 @endsection

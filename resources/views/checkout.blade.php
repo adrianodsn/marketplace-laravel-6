@@ -58,7 +58,8 @@
 @section('scripts')
     <script src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>
     <script>
-        const sessionId = '{{session()->get('pagseguro_session_id')}}';
+        //const sessionId = '{{session()->get('pagseguro_session_id')}}';        
+        const sessionId = '{{$pagSeguroSessionCode}}';
         const urlProccess = '{{route('checkout.proccess')}}';
         const urlThanks = '{{route('checkout.thanks')}}';
         const amountTransaction = '{{$total}}';

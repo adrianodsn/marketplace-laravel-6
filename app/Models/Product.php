@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+//use Illuminate\Support\Str;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
@@ -21,6 +22,26 @@ class Product extends Model
             ->generateSlugsFrom('name')
             ->saveSlugsTo('slug');
     }
+
+    // Slug manual
+
+    // public function getThumbAttribute()
+    // {
+    //     return $this->photos->first()->image;
+    // }
+
+    // public function setNameAttribute($value)
+    // {
+    //     $this->attributes['name'] = $value;
+    //     $this->attributes['slug'] = $this->uniqueSlug($value);
+    // }
+
+    // public function uniqueSlug($name)
+    // {
+    //     $slug = Str::slug($name);
+    //     $slugCount = count($this->whereRaw("slug REGEXP '^{$slug}(-[0-9]*)?$'")->get());
+    //     return ($slugCount > 0) ? "{$slug}-{$slugCount}" : $slug;
+    // }
 
     public function store()
     {

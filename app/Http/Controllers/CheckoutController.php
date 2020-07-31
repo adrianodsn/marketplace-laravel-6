@@ -23,15 +23,17 @@ class CheckoutController extends Controller
             return redirect()->route('login');
         }
 
-        $this->makePagSeguroSession();
-
         $total = array_map(function ($line) {
             return $line['amount'] * $line['price'];
         }, session()->get('cart'));
 
         $total = array_sum($total);
 
-        return view('checkout', compact('total'));
+        $pagSeguroSessionCode = $this->makePagSeguroSession();
+
+        //$pagSeguroSessionCode = "teste";
+
+        return view('checkout', compact(['total', 'pagSeguroSessionCode']));
     }
 
     public function proccess(Request $request)
@@ -110,13 +112,19 @@ class CheckoutController extends Controller
 
     private function makePagSeguroSession()
     {
-        if (!session()->has('pagseguro_session_id')) {
+        $sessionCode = \PagSeguro\Services\Session::create(
+            \PagSeguro\Configuration\Configure::getAccountCredentials()
+        );
 
-            $sessionCode = \PagSeguro\Services\Session::create(
-                \PagSeguro\Configuration\Configure::getAccountCredentials()
-            );
+        return $sessionCode->getResult();
 
-            session()->put('pagseguro_session_id', $sessionCode->getResult());
-        }
+        // if (!session()->has('pagseguro_session_id')) {
+
+        //     $sessionCode = \PagSeguro\Services\Session::create(
+        //         \PagSeguro\Configuration\Configure::getAccountCredentials()
+        //     );
+
+        //     session()->put('pagseguro_session_id', $sessionCode->getResult());
+        // }
     }
 }
