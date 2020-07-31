@@ -45,9 +45,17 @@
                             @csrf
                         </form>
                     </li> --}}
-                    <li class="nav-item                  @if (request()
-                        ->is('orders'))
-                    active  @endif">
+                    
+                    @auth
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="event.preventDefault(); document.querySelector('form.logout').submit();">Sair</a>
+                            <form action="{{route('logout')}}" class="logout" method="POST">
+                                @csrf
+                            </form>
+                        </li>
+                    @endauth
+                    
+                    <li class="nav-item @if (request()->is('orders')) active @endif">
                         <a class="nav-link" href="{{ route('orders') }}">Meus pedidos</a>
                     </li>
                     <li class="nav-item">

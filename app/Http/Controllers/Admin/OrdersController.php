@@ -17,7 +17,14 @@ class OrdersController extends Controller
 
     public function index()
     {
-        $orders = auth()->user()->store->orders()->paginate(15);
+        $user = auth()->user();
+
+        if (!$user->store()->exists()) {
+            flash('É necessário criar uma loja para receber pedidos.')->warning();
+            return redirect()->route('admin.stores.index');
+        }
+
+        $orders = $user->store->orders()->paginate(15);
         return view('admin.orders.index', compact('orders'));
     }
 }

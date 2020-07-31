@@ -17,19 +17,19 @@
         </button>      
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item @if(request()->is('admin/orders*')) active @endif">
-              <a class="nav-link" href="{{route('admin.orders')}}">Pedidos</a>
-          </li>
             <li class="nav-item @if(request()->is('admin/stores*')) active @endif">
-                <a class="nav-link" href="{{route('admin.stores.index')}}">Loja</a>
+              <a class="nav-link" href="{{route('admin.stores.index')}}">Loja</a>
             </li>
             <li class="nav-item @if(request()->is('admin/categories*')) active @endif">
                 <a class="nav-link" href="{{route('admin.categories.index')}}">Categorias</a>
             </li>
-            @if (auth()->user()->store)
-            <li class="nav-item @if(request()->is('admin/products*')) active @endif">
-              <a class="nav-link" href="{{route('admin.products.index')}}">Produtos</a>
-            </li>
+            @if (auth()->user()->store()->exists())
+              <li class="nav-item @if(request()->is('admin/orders*')) active @endif">
+                <a class="nav-link" href="{{route('admin.orders')}}">Pedidos</a>
+              </li>
+              <li class="nav-item @if(request()->is('admin/products*')) active @endif">
+                <a class="nav-link" href="{{route('admin.products.index')}}">Produtos</a>
+              </li>
             @endif
           </ul>
           <div class="my-2 my-lg-0">
@@ -63,5 +63,6 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+    @yield('scripts')
 </body>
 </html>

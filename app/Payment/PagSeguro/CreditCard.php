@@ -21,12 +21,12 @@ class CreditCard
     {
         $creditCard = new \PagSeguro\Domains\Requests\DirectPayment\CreditCard();
         $creditCard->setReceiverEmail(env('PAGSEGURO_EMAIL'));
-        $creditCard->setReference($this->reference);
+        $creditCard->setReference(base64_encode($this->reference));
         $creditCard->setCurrency("BRL");
 
-        foreach ($this->cart as $key => $c) {
+        foreach ($this->cart as $c) {
             $creditCard->addItems()->withParameters(
-                ++$key,
+                $c['id'],
                 $c['name'],
                 $c['amount'],
                 $c['price']

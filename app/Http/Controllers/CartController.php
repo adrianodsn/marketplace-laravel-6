@@ -25,7 +25,7 @@ class CartController extends Controller
             return redirect()->route('home');
         }
 
-        $product = \App\Models\Product::whereSlug($productData['slug'])->firstOrFail(['name', 'price', 'store_id'])->toArray();
+        $product = \App\Models\Product::whereSlug($productData['slug'])->firstOrFail(['id', 'name', 'price', 'store_id'])->toArray();
 
         $product = array_merge($productData, $product);
 

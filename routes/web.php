@@ -22,11 +22,13 @@ Route::prefix('checkout')->name('checkout.')->group(function () {
     Route::get('', 'CheckoutController@index')->name('index');
     Route::post('proccess', 'CheckoutController@proccess')->name('proccess');
     Route::get('thanks', 'CheckoutController@thanks')->name('thanks');
+
+    Route::post('notification', 'CheckoutController@notification')->name('notification');
 });
 
-Route::group(['middleware' => ['auth']], function () {
+Route::get('orders', 'OrdersController@index')->middleware('auth')->name('orders');
 
-    Route::get('orders', 'OrdersController@index')->name('orders');
+Route::group(['middleware' => ['auth', 'access.control.store.admin']], function () {
 
     Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function () {
 

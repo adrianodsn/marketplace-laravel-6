@@ -54,3 +54,11 @@
 </form>
     
 @endsection
+
+@section('scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/inputmask/4.0.9/jquery.inputmask.bundle.min.js"></script>
+    <script>
+         $('#phone').inputmask("(99) 9999-9999");
+         $('#mobile_phone').inputmask("(99) 99999-9999");
+    </script>
+@endsection
