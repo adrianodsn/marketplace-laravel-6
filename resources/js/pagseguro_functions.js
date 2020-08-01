@@ -1,4 +1,4 @@
-function proccessPayment(token) {
+function proccessPayment(token, buttonTarget) {
     let data = {
         card_token: token,
         hash: PagSeguroDirectPayment.getSenderHash(),
@@ -20,6 +20,10 @@ function proccessPayment(token) {
         },
         error: function (err) {
             console.log('proccessPayment:', err);
+            buttonTarget.disabled = false;
+            buttonTarget.textContent = 'Efetuar pagamento';
+            let message = JSON.parse(err.responseText);
+            showErrorMessage(message.data.message.error.message);
         },
         complete: function (res) {
             console.log('proccessPayment:', 'complete');
@@ -58,4 +62,29 @@ function drawSelectInstallments(installments) {
 
     select += '</select>';
     return select;
+}
+
+function showErrorMessage(message) {
+    toastr.error(message, 'Erro');
+}
+
+function errorMapPagSeguroJS(code) {
+    switch (code) {
+        case '10000':
+            return 'Bandeira do cartão inválida.';
+        case '10001':
+            return 'Número do cartão com tamanho inválido.';
+        case '10002':
+        case '30405':
+        case '30400':
+            return 'Data de validade inválida.';
+        case '10003':
+            return 'Código de segurança inválido.';
+        case '10004':
+            return 'Código de segurança é obrigatório!';
+        case '10006':
+            return 'Tamanho do código de segurança inválido!';
+        default:
+            return 'Houve um erro na validação do seu cartão de crédito!';
+    }
 }

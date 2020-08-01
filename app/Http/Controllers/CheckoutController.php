@@ -71,7 +71,7 @@ class CheckoutController extends Controller
                 ]
             ], 200);
         } catch (\Exception $e) {
-            $message = env('APP_DEBUG') ? $e->getMessage() : 'Erro ao processar o pagamento.';
+            $message = env('APP_DEBUG') ? simplexml_load_string($e->getMessage()) : 'Erro ao processar o pagamento.';
 
             return response()->json([
                 'data' => [

@@ -23,12 +23,12 @@ class Product extends Model
             ->saveSlugsTo('slug');
     }
 
-    // Slug manual
+    public function getThumbAttribute()
+    {
+        return $this->photos->first()->image;
+    }
 
-    // public function getThumbAttribute()
-    // {
-    //     return $this->photos->first()->image;
-    // }
+    // Slug manual
 
     // public function setNameAttribute($value)
     // {

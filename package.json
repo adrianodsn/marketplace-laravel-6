@@ -19,7 +19,5 @@
         "sass-loader": "^8.0.0",
         "vue-template-compiler": "^2.6.11"
     },
-    "dependencies": {
-        "inputmask": "^5.0.3"
-    }
+    "dependencies": {}
 }

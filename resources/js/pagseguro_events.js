@@ -29,6 +29,11 @@ submitButton.addEventListener('click', function (event) {
 
     event.preventDefault();
 
+    let buttonTarget = event.target;
+
+    buttonTarget.disabled = true;
+    buttonTarget.textContent = 'Carregando...';
+
     PagSeguroDirectPayment.createCardToken({
         cardNumber: document.getElementById('card_number').value,
         brand: document.getElementById('card_brand').value,
@@ -38,10 +43,15 @@ submitButton.addEventListener('click', function (event) {
         success: function (res) {
             console.log('createCardToken:', 'success');
             //console.log(res);
-            proccessPayment(res.card.token)
+            proccessPayment(res.card.token, buttonTarget)
         },
         error: function (err) {
+            buttonTarget.disabled = false;
+            buttonTarget.textContent = 'Efetuar pagamento';
             console.log('createCardToken:', err);
+            for (let i in err.errors) {
+                showErrorMessage(errorMapPagSeguroJS(i));
+            }
         },
         complete: function (res) {
             console.log('createCardToken:', 'complete');

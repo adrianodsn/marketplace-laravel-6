@@ -8,6 +8,10 @@
 
         @csrf
         @method('PUT')
+
+        <div>
+            {{$product->slug}}
+        </div>
         
         <div class="form-group">
             <label for="name">Nome do produto</label>
