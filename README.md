@@ -1,3 +1,3 @@
-# marketplace-l6
+# Marketplace L6
 
-Projeto do curso Trabalhando com ACL no Laravel da Code Experts.
+Projeto prático de marketplace com PagSeguro transparente do curso "Laravel 6 na Prática".
