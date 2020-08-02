@@ -1,2 +1,3 @@
 # marketplace-l6
-Projeto teste do curso de Laravel.
+
+Projeto do curso Trabalhando com ACL no Laravel da Code Experts.
